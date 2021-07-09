@@ -1,8 +1,13 @@
 package school.simple.board.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import school.simple.board.dto.BoardDto;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -10,7 +15,8 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardEntity {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "board_id")
     private Long id;
 
@@ -20,19 +26,29 @@ public class BoardEntity {
     @Column(name = "board_content", length = 500)
     private String content;
 
+    @Column(name = "board_create_time")
+    private LocalDateTime createTime;
+
     @Override
     public String toString() {
         return "BoardEntity{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", createTime=" + createTime +
                 '}';
     }
 
     @Builder
-    public BoardEntity(Long id, String title, String content) {
+    public BoardEntity(Long id, String title, String content, LocalDateTime createTime) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.createTime = createTime;
+    }
+
+    public BoardDto toDto() {
+        BoardDto boardDto = new BoardDto(id, title, content, createTime);
+        return boardDto;
     }
 }

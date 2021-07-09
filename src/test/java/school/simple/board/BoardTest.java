@@ -5,9 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import school.simple.board.domain.BoardEntity;
+import school.simple.board.dto.BoardDto;
 import school.simple.board.service.BoardService;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 
 
 @SpringBootTest
@@ -20,14 +22,10 @@ public class BoardTest {
     @Test
     void create() {
         //given
-        BoardEntity createBoard = BoardEntity.builder()
-                .id(1L)
-                .title("testTitle")
-                .content("testContent")
-                .build();
+        BoardDto form = new BoardDto(15648974L, "testTitle", "testContent", LocalDateTime.now());
 
         //when
-        Long createId = boardService.create(createBoard);
+        Long createId = boardService.create(form);
         BoardEntity findBoard = boardService.findById(createId);
 
         //then
