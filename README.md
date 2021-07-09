@@ -8,7 +8,7 @@
 ```
 git clone https://github.com/Jskyu/simple_board
 gradlew clean
-gradlew compile
+gradlew compileJava
 gradlew bootRun
 ```
 
