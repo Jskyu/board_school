@@ -1,5 +1,3 @@
-# simple_board
-
 # :computer: Simple_Board
 > 간단한 게시판 구현
 
