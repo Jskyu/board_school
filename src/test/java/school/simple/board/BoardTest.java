@@ -1,6 +1,5 @@
 package school.simple.board;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +9,10 @@ import school.simple.board.service.BoardService;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 @SpringBootTest
@@ -29,6 +32,25 @@ public class BoardTest {
         BoardEntity findBoard = boardService.findById(createId);
 
         //then
-        Assertions.assertEquals(createId, findBoard.getId(), "생성한 객체와 찾아온 객체의 ID가 같아야 한다.");
+        assertEquals(createId, findBoard.getId(), "생성한 객체와 찾아온 객체의 ID가 같아야 한다.");
+    }
+
+    @Test
+    void delete() {
+        //given
+        Long createId = boardService.create(new BoardDto(4561561L, "deleteTest", "", LocalDateTime.now()));
+
+        //when
+        boardService.deleteById(createId);
+
+        try {
+            boardService.findById(createId);
+        } catch (NoSuchElementException e) {
+            System.out.println("error : " + e.getMessage());
+            return;
+        }
+
+        //then
+        fail("오류가 발생해야 함");
     }
 }
