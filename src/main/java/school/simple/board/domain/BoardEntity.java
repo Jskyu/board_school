@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Getter
 @Table(name = "board")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class BoardEntity {
 
     @Id @GeneratedValue
@@ -31,7 +30,9 @@ public class BoardEntity {
     }
 
     @Builder
-    public BoardEntity BoardBuilder(Long id, String title, String content) {
-        return new BoardEntity(id, title, content);
+    public BoardEntity(Long id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
     }
 }
