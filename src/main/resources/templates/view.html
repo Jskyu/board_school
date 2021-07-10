@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>View</title>
-</head>
+<head th:replace="fragments/header :: header"/>
 <body>
-<hr>
-<h3>제목</h3>
-<h3 th:text="${board.title}">title</h3>
-<h5>작성 시간</h5>
-<h5 th:text="${board.createTime}">createTime</h5>
-<hr>
-<h4>내용</h4>
-<hr>
-<pre th:text="${board.content}"></pre>
-<hr>
-
-<a href="/board/list">리스트로 돌아가기</a>
-<br>
-<a th:href="${'/board/delete/' + board.id}">이 글 삭제하기</a>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div class="border">
+        <h3>제목</h3>
+        <hr>
+        <h3 th:text="${board.title}">title</h3>
+        <h5 th:text="'작성 시간 ' + ${board.createTime}">createTime</h5>
+        <hr>
+        <h4>내용</h4>
+        <hr>
+        <pre th:text="${board.content}"></pre>
+    </div>
+    <a th:href="${'/board/delete/' + board.id}">이 글 삭제하기</a>
+    <br>
+    <a href="/board/list">리스트로 돌아가기</a>
+    <div th:replace="fragments/footer :: footer"/>
+</div>
 </body>
 </html>
