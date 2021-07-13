@@ -30,7 +30,7 @@ public class BoardEntity {
     private LocalDateTime createTime;
 
     @Column(name = "board_password", length = 20)
-    private String password;
+    private byte[] password;
 
     @Override
     public String toString() {
@@ -43,7 +43,7 @@ public class BoardEntity {
     }
 
     @Builder
-    public BoardEntity(Long id, String title, String content, LocalDateTime createTime, String password) {
+    public BoardEntity(Long id, String title, String content, LocalDateTime createTime, byte[] password) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -52,7 +52,7 @@ public class BoardEntity {
     }
 
     public BoardDto toDto() {
-        return new BoardDto(id, title, content, createTime, password);
+        return new BoardDto(id, title, content, createTime);
     }
 
     public void update(BoardDto form) {

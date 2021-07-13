@@ -8,6 +8,7 @@ import school.simple.board.dto.BoardDto;
 import school.simple.board.service.BoardService;
 
 import javax.transaction.Transactional;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
@@ -23,9 +24,9 @@ public class BoardTest {
     BoardService boardService;
 
     @Test
-    void create() {
+    void create() throws NoSuchAlgorithmException {
         //given
-        BoardDto form = new BoardDto(15648974L, "testTitle", "testContent", LocalDateTime.now(), "1234");
+        BoardDto form = new BoardDto(15648974L, "testTitle", "testContent", LocalDateTime.now());
 
         //when
         Long createId = boardService.create(form);
@@ -36,9 +37,9 @@ public class BoardTest {
     }
 
     @Test
-    void delete() {
+    void delete() throws NoSuchAlgorithmException {
         //given
-        Long createId = boardService.create(new BoardDto(4561561L, "deleteTest", "", LocalDateTime.now(), "1234"));
+        Long createId = boardService.create(new BoardDto(4561561L, "deleteTest", "", LocalDateTime.now()));
 
         //when
         boardService.deleteById(createId);

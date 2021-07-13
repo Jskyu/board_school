@@ -24,11 +24,10 @@ public class BoardDto {
     @Length(min = 4, max = 20, message = "패스워드는 최소 4글자, 최대 20글자 입니다.")
     private String password;
 
-    public BoardDto(Long id, String title, String content, LocalDateTime createTime, String password) {
+    public BoardDto(Long id, String title, String content, LocalDateTime createTime) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createTime = createTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH시 mm분"));
-        this.password = password;
     }
 }

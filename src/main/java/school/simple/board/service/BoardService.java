@@ -8,6 +8,9 @@ import school.simple.board.domain.BoardEntity;
 import school.simple.board.dto.BoardDto;
 import school.simple.board.repository.BoardRepo;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,20 +23,23 @@ public class BoardService {
     private final BoardRepo boardRepo;
 
     @Transactional
-    public Long create(BoardDto form) {
+    public Long create(BoardDto form) throws NoSuchAlgorithmException {
         return boardRepo.save(BoardEntity.builder()
                 .title(form.getTitle())
                 .content(form.getContent())
                 .createTime(LocalDateTime.now())
+                .password(sha256(form.getPassword()))
                 .build()).getId();
     }
 
     @Transactional
-    public void update(BoardDto form){
+    public void update(BoardDto form) throws NoSuchAlgorithmException {
         BoardEntity find = findById(form.getId());
-        if(form.getPassword().equals(find.getPassword())){
+        if(Arrays.equals(sha256(form.getPassword()), find.getPassword())){
             find.update(form);
         }
+        System.out.println("form.getPassword().length = " + sha256(form.getPassword()).length);
+        System.out.println("find.getPassword().length = " + find.getPassword().length);
     }
 
     public BoardEntity findById(Long id) {
@@ -59,5 +65,11 @@ public class BoardService {
 
     public List<BoardDto> findAllToDto() {
         return this.findAll().stream().map(BoardEntity::toDto).collect(Collectors.toList());
+    }
+
+    private byte[] sha256(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        md.update(password.getBytes());
+        return md.digest();
     }
 }

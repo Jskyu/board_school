@@ -13,6 +13,7 @@ import school.simple.board.dto.BoardDto;
 import school.simple.board.service.BoardService;
 
 import javax.validation.Valid;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,7 +54,7 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public String writePost(@Valid BoardDto boardForm, Errors errors, Model model) {
+    public String writePost(@Valid BoardDto boardForm, Errors errors, Model model) throws NoSuchAlgorithmException {
         log.info("게시글 작성 시도");
         if (errors.hasErrors()) {
             log.warn("게시글 작성 실패. 에러 내용 : " + Objects.requireNonNull(errors.getFieldError()).getDefaultMessage());
@@ -74,7 +75,7 @@ public class BoardController {
     }
 
     @PostMapping("/update/{id}")
-    public String updatePost(@PathVariable(value = "id") Long id, @Valid BoardDto boardForm, Errors errors, Model model) {
+    public String updatePost(@PathVariable(value = "id") Long id, @Valid BoardDto boardForm, Errors errors, Model model) throws NoSuchAlgorithmException {
         log.info(id + "번 게시글 수정 시도");
         if (errors.hasErrors()) {
             log.warn("게시글 작성 실패. 에러 내용 : " + Objects.requireNonNull(errors.getFieldError()).getDefaultMessage());
