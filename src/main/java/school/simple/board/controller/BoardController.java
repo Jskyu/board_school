@@ -66,6 +66,27 @@ public class BoardController {
         return "redirect:view/" + id;
     }
 
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable(value = "id") Long id, Model model) {
+        log.info(id + "번 게시글 수정하기");
+        model.addAttribute("boardForm", boardService.findById(id).toDto());
+        return "update";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updatePost(@PathVariable(value = "id") Long id, @Valid BoardDto boardForm, Errors errors, Model model) {
+        log.info(id + "번 게시글 수정 시도");
+        if (errors.hasErrors()) {
+            log.warn("게시글 작성 실패. 에러 내용 : " + Objects.requireNonNull(errors.getFieldError()).getDefaultMessage());
+            model.addAttribute("boardForm", boardForm);
+            boardService.validateHandling(errors).forEach(model::addAttribute);
+            return "update";
+        }
+        boardService.update(boardForm);
+        log.info(id + "번 게시글 수정 성공");
+        return "redirect:/board/view/" + id;
+    }
+
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable(value = "id") Long id) {
         log.info(id + "번 게시글 삭제");

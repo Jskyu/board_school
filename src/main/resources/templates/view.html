@@ -10,12 +10,14 @@
         <h3 th:text="${board.title}">title</h3>
         <h5 th:text="'작성 시간 ' + ${board.createTime}">createTime</h5>
         <hr>
-        <h4>내용</h4>
+        <h5>내용</h5>
         <hr>
         <pre th:text="${board.content}"></pre>
     </div>
     <a th:href="${'/board/delete/' + board.id}">이 글 삭제하기</a>
-    <br>
+    <hr>
+    <a th:href="${'/board/update/' + board.id}">이 글 수정하기</a>
+    <hr>
     <a href="/board/list">리스트로 돌아가기</a>
     <div th:replace="fragments/footer :: footer"/>
 </div>

@@ -29,6 +29,9 @@ public class BoardEntity {
     @Column(name = "board_create_time")
     private LocalDateTime createTime;
 
+    @Column(name = "board_password", length = 20)
+    private String password;
+
     @Override
     public String toString() {
         return "BoardEntity{" +
@@ -40,15 +43,20 @@ public class BoardEntity {
     }
 
     @Builder
-    public BoardEntity(Long id, String title, String content, LocalDateTime createTime) {
+    public BoardEntity(Long id, String title, String content, LocalDateTime createTime, String password) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createTime = createTime;
+        this.password = password;
     }
 
     public BoardDto toDto() {
-        BoardDto boardDto = new BoardDto(id, title, content, createTime);
-        return boardDto;
+        return new BoardDto(id, title, content, createTime, password);
+    }
+
+    public void update(BoardDto form) {
+        this.title = form.getTitle();
+        this.content = form.getContent();
     }
 }

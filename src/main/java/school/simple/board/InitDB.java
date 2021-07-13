@@ -37,6 +37,7 @@ public class InitDB {
                         .title("test" + i)
                         .content("content" + i)
                         .createTime(LocalDateTime.now())
+                        .password("1234")
                         .build());
             }
 

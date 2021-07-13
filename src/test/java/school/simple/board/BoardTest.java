@@ -25,7 +25,7 @@ public class BoardTest {
     @Test
     void create() {
         //given
-        BoardDto form = new BoardDto(15648974L, "testTitle", "testContent", LocalDateTime.now());
+        BoardDto form = new BoardDto(15648974L, "testTitle", "testContent", LocalDateTime.now(), "1234");
 
         //when
         Long createId = boardService.create(form);
@@ -38,7 +38,7 @@ public class BoardTest {
     @Test
     void delete() {
         //given
-        Long createId = boardService.create(new BoardDto(4561561L, "deleteTest", "", LocalDateTime.now()));
+        Long createId = boardService.create(new BoardDto(4561561L, "deleteTest", "", LocalDateTime.now(), "1234"));
 
         //when
         boardService.deleteById(createId);

@@ -2,29 +2,38 @@ package school.simple.board.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import school.simple.board.domain.BoardEntity;
 import school.simple.board.dto.BoardDto;
 import school.simple.board.repository.BoardRepo;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class BoardService {
 
     private final BoardRepo boardRepo;
 
+    @Transactional
     public Long create(BoardDto form) {
         return boardRepo.save(BoardEntity.builder()
                 .title(form.getTitle())
                 .content(form.getContent())
                 .createTime(LocalDateTime.now())
                 .build()).getId();
+    }
+
+    @Transactional
+    public void update(BoardDto form){
+        BoardEntity find = findById(form.getId());
+        if(form.getPassword().equals(find.getPassword())){
+            find.update(form);
+        }
     }
 
     public BoardEntity findById(Long id) {

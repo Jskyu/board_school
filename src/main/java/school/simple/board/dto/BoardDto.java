@@ -20,10 +20,15 @@ public class BoardDto {
     private String content;
     private String createTime;
 
-    public BoardDto(Long id, String title, String content, LocalDateTime createTime) {
+    @NotBlank(message = "패스워드는 필수 입력입니다.")
+    @Length(min = 4, max = 20, message = "패스워드는 최소 4글자, 최대 20글자 입니다.")
+    private String password;
+
+    public BoardDto(Long id, String title, String content, LocalDateTime createTime, String password) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createTime = createTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH시 mm분"));
+        this.password = password;
     }
 }
