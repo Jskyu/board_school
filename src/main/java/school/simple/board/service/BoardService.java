@@ -38,8 +38,6 @@ public class BoardService {
         if(Arrays.equals(sha256(form.getPassword()), find.getPassword())){
             find.update(form);
         }
-        System.out.println("form.getPassword().length = " + sha256(form.getPassword()).length);
-        System.out.println("find.getPassword().length = " + find.getPassword().length);
     }
 
     public BoardEntity findById(Long id) {

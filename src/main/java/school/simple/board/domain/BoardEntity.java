@@ -29,7 +29,7 @@ public class BoardEntity {
     @Column(name = "board_create_time")
     private LocalDateTime createTime;
 
-    @Column(name = "board_password", length = 20)
+    @Column(name = "board_password", length = 200)
     private byte[] password;
 
     @Override
