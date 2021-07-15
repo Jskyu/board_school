@@ -36,7 +36,7 @@ public class BoardController {
         log.info("게시판 조회");
         List<BoardDto> list = boardService.findAllToDto();
         model.addAttribute("boards", list);
-        return "board";
+        return "list";
     }
 
     @GetMapping("/view/{id}")

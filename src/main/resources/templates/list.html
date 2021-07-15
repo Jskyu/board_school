@@ -1,25 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="fragments/header :: header">
-    <style type="text/css">
-        table {
-            width: 60%;
-            height: 100px;
-            text-align: center;
-        }
-
-        .title {
-            text-align: left;
-        }
-    </style>
 </head>
 <body>
-<div>
+<div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <div>
         <a href="/board/write">새 글 작성하기</a>
         <br>
-        <table width="500">
+        <table class="board_table">
             <thead>
             <tr>
                 <th>번호</th>
@@ -32,14 +20,13 @@
                 <td>
                     <a th:text="${board.id}"></a>
                 </td>
-                <td class="title">
+                <td class="board_title">
                     <a th:text="${board.title}" th:href="${'/board/view/' + board.id}"></a>
                 </td>
                 <td th:text="${board.createTime}"></td>
             </tr>
             </tbody>
         </table>
-    </div>
     <div th:replace="fragments/footer :: footer" />
 </div>
 </body>
