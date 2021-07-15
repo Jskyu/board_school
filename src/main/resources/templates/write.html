@@ -6,7 +6,7 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <form role="form" action="/board/write" th:object="${boardForm}" method="post">
-        <div class="form-group">
+        <div>
             <label th:for="title">제목</label>
             <br>
             <div>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <hr>
-        <div class="form-group">
+        <div>
             <label th:for="content">내용</label>
             <br>
             <input type="text" name="content" th:field="*{content}" placeholder="내용">
@@ -23,7 +23,7 @@
         </div>
         <input align="right" type="password" name="password" th:field="*{password}" placeholder="비밀번호">
         <hr>
-        <button class="btn btn-lg btn-dark" type="submit">작성하기</button>
+        <button type="submit">작성하기</button>
     </form>
     <div th:replace="fragments/footer :: footer"/>
 </div>
