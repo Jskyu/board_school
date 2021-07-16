@@ -17,16 +17,6 @@ tr {
     width: 50px;
 }
 
-.div .left {
-    text-align: left;
-}
-.div .right {
-    text-align: right;
-}
-.div .center {
-    text-align: center;
-}
-
 .body-header {
     margin-left: 10px;
 }
