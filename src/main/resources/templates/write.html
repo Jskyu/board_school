@@ -9,22 +9,47 @@
             <label th:for="title">제목</label>
             <br>
             <div>
-                <input class="title" type="text" name="title" th:field="*{title}" placeholder="제목" maxlength="20" minlength="0">
-                <span th:text="${valid_title}"></span>
+                <input id="title" class="title" type="text" name="title" th:field="*{title}" placeholder="제목">
             </div>
         </div>
         <hr>
         <div>
             <label th:for="content">내용</label>
             <br>
-            <input class="content" type="text" name="content" th:field="*{content}" placeholder="내용" required>
+            <input class="content" type="text" name="content" th:field="*{content}" placeholder="내용">
             <br>
         </div>
-        <input type="password" name="password" th:field="*{password}" placeholder="비밀번호" required>
+        <input id="pwd" type="password" name="password" th:field="*{password}" placeholder="비밀번호">
         <hr>
-        <button type="submit" value="Submit">작성하기</button>
+        <button onclick="checkForm()">작성하기</button>
     </form>
     <div th:replace="fragments/footer :: footer"/>
 </div>
+<script type="text/javascript">
+    function checkForm(){
+        const title = document.getElementById("title").value;
+        const pwd = document.getElementById("pwd").value;
+
+        function checkTitle(){
+            if(title === '' || title.length > 20){
+                alert('제목은 비어있거나 20글자를 초과할 수 없습니다.');
+                onsubmit(false);
+                return;
+            }
+
+        }
+        checkTitle();
+        function checkPwd(){
+            if(pwd === '' || pwd.length > 4 || pwd.length < 4){
+                alert('패스워드는 4글자 여야 합니다.');
+                onsubmit(false);
+                return;
+            } else {
+                onsubmit(true);
+            }
+        }
+        checkPwd();
+    }
+</script>
 </body>
 </html>

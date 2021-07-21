@@ -21,7 +21,7 @@ public class BoardDto {
     private String createTime;
 
     @NotBlank(message = "패스워드는 필수 입력입니다.")
-    @Length(min = 4, max = 20, message = "패스워드는 최소 4글자, 최대 20글자 입니다.")
+    @Length(min = 4, max = 4, message = "패스워드는 4글자 입니다.")
     private String password;
 
     public BoardDto(Long id, String title, String content, LocalDateTime createTime) {
