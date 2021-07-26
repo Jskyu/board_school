@@ -5,7 +5,7 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-        <a href="/board/write">새 글 작성하기</a>
+        <button id="writeButton">새 글 작성하기</button>
         <br>
         <table class="board_table">
             <thead>
@@ -29,5 +29,10 @@
         </table>
     <div th:replace="fragments/footer :: footer" />
 </div>
+<script type="text/javascript">
+    document.getElementById('writeButton').addEventListener('click', function (e) {
+        location.href = '/board/write/';
+    });
+</script>
 </body>
 </html>

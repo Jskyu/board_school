@@ -4,27 +4,59 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <form id="writeForm" role="form" th:action="${'/board/update/' + boardForm.id}" th:object="${boardForm}" method="post">
+    <form id="updateForm" role="form" th:object="${boardForm}" method="post">
         <div>
             <label th:for="title">제목</label>
             <br>
             <div>
-                <input class="title" type="text" name="title" th:field="*{title}" placeholder="제목" required maxlength="20" minlength="0">
-                <span th:text="${valid_title}"></span>
+                <input id="title" class="title" type="text" name="title" th:field="*{title}" placeholder="제목">
             </div>
         </div>
         <hr>
         <div>
             <label th:for="content">내용</label>
             <br>
-            <input type="text" class="content" name="content" th:field="*{content}" placeholder="내용">
+            <input id="content" class="content" type="text" name="content" th:field="*{content}" placeholder="내용">
             <br>
         </div>
-        <input type="password" name="password" th:field="*{password}" placeholder="비밀번호">
+        <input id="pwd" type="password" name="password" th:field="*{password}" placeholder="비밀번호">
         <hr>
-        <button type="submit">작성하기</button>
+        <button type="submit" onclick="validForm()">수정하기</button>
     </form>
     <div th:replace="fragments/footer :: footer"/>
 </div>
+
+<script type="text/javascript">
+    function validForm() {
+        const form = document.getElementById("updateForm");
+        const title = document.getElementById("title");
+        const pwd = document.getElementById("pwd");
+
+        if (checkTitle(title)) {
+            if (validPwd(pwd)) {
+                form.action = "/board/write"
+                form.submit();
+            }
+        }
+    }
+
+    function checkTitle(title) {
+        if (title.value === '' || title.value.length > 20) {
+            title.style.borderColor = 'red';
+            alert('제목은 비어있거나 20글자를 초과할 수 없습니다.');
+            return false;
+        }
+        return true;
+    }
+
+    function validPwd(pwd) {
+        if (pwd.value === '' || pwd.value.length !== 4) {
+            document.getElementById("pwd").style.borderColor = 'red';
+            alert('패스워드는 4글자 여야 합니다.');
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>
