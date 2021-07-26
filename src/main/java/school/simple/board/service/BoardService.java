@@ -33,11 +33,13 @@ public class BoardService {
     }
 
     @Transactional
-    public void update(BoardDto form) throws NoSuchAlgorithmException {
+    public boolean update(BoardDto form) throws NoSuchAlgorithmException {
         BoardEntity find = findById(form.getId());
         if(Arrays.equals(sha256(form.getPassword()), find.getPassword())){
             find.update(form);
+            return true;
         }
+        return false;
     }
 
     public BoardEntity findById(Long id) {
@@ -57,6 +59,7 @@ public class BoardService {
         return validatorResult;
     }
 
+    @Transactional
     public void deleteById(Long id) {
         boardRepo.deleteById(id);
     }

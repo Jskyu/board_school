@@ -83,8 +83,9 @@ public class BoardController {
             boardService.validateHandling(errors).forEach(model::addAttribute);
             return "update";
         }
-        boardService.update(boardForm);
-        log.info(id + "번 게시글 수정 성공");
+        if(boardService.update(boardForm)){
+            log.info(id + "번 게시글 수정 성공");
+        } else log.info(id + "번 게시글 수정 실패");
         return "redirect:/board/view/" + id;
     }
 

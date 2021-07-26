@@ -4,20 +4,34 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-        <h3>제목</h3>
-        <hr>
-        <h3 class="title" th:text="${board.title}">title</h3>
-        <h5 th:text="'작성 시간 : ' + ${board.createTime}">createTime</h5>
-        <hr>
-        <h5>내용</h5>
-        <hr>
-        <pre class="content" th:text="${board.content}"></pre>
-    <a th:href="${'/board/delete/' + board.id}">이 글 삭제하기</a>
+    <h3>제목</h3>
     <hr>
-    <a th:href="${'/board/update/' + board.id}">이 글 수정하기</a>
+    <h3 id="title" th:text="${board.title}" class="title">title</h3>
+    <h5 id="createTime" th:text="'작성 시간 : ' + ${board.createTime}">createTime</h5>
     <hr>
-    <a href="/board/list">리스트로 돌아가기</a>
+    <h5>내용</h5>
+    <hr>
+    <pre id="content" class="content" th:text="${board.content}"></pre>
+    <button id="deleteButton">이 글 삭제하기</button>
+    <hr>
+    <button id="editButton">이 글 수정하기</button>
+    <hr>
+    <button id="backButton">리스트로 돌아가기</button>
     <div th:replace="fragments/footer :: footer"/>
 </div>
+<script type="text/javascript">
+    const split = document.location.href.toString().split('/');
+    const id = split[split.length - 1];
+
+    document.getElementById('editButton').addEventListener('click', function (e) {
+        location.href = '/board/update/' + id;
+    });
+    document.getElementById('deleteButton').addEventListener('click', function (e) {
+        location.href = '/board/delete/' + id;
+    });
+    document.getElementById('backButton').addEventListener('click', function (e) {
+        location.href = '/board/list/';
+    });
+</script>
 </body>
 </html>
