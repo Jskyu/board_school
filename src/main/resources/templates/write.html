@@ -22,7 +22,7 @@
         </div>
         <input id="pwd" type="password" name="password" th:field="*{password}" placeholder="비밀번호">
         <hr>
-        <button type="submit" onclick="checkForm()">작성하기</button>
+        <button id="btn" type="button" onclick="checkForm()">작성하기</button>
     </form>
     <div th:replace="fragments/footer :: footer"/>
 </div>
@@ -37,7 +37,12 @@
             if (checkPwd(pwd)) {
                 form.action = "/board/write"
                 form.submit();
+            } else {
+                title.style.borderColor = '';
             }
+        }
+        else {
+            alert('검증 실패');
         }
     }
 

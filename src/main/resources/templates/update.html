@@ -21,7 +21,7 @@
         </div>
         <input id="pwd" type="password" name="password" th:field="*{password}" placeholder="비밀번호">
         <hr>
-        <button type="submit" onclick="validForm()">수정하기</button>
+        <button type="button" onclick="validForm()">수정하기</button>
     </form>
     <div th:replace="fragments/footer :: footer"/>
 </div>
@@ -32,9 +32,12 @@
         const title = document.getElementById("title");
         const pwd = document.getElementById("pwd");
 
+        const split = document.location.href.toString().split('/');
+        const id = split[split.length - 1];
+
         if (checkTitle(title)) {
             if (validPwd(pwd)) {
-                form.action = "/board/write"
+                form.action = "/board/update/" + id;
                 form.submit();
             }
         }
